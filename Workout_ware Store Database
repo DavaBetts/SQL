@@ -1,0 +1,22 @@
+CREATE TABLE Workout_ware (id INTEGER PRIMARY KEY, name TEXT, price INTEGER, size TEXT, quantity INTEGER);
+
+INSERT INTO Workout_ware VALUES (1, "yoga leggings", 59.99, "small", 5);
+INSERT INTO Workout_ware VALUES (2, "running pants", 59.99, "medium, large", 18);
+INSERT INTO Workout_ware VALUES (3, "running shorts", 39.99, "large", 7);
+INSERT INTO Workout_ware VALUES (4, "seamless panties", 12.99, "small, medium, large", 20);
+INSERT INTO Workout_ware VALUES (5, "running socks", 5.99, "one-size", 15);
+INSERT INTO Workout_ware VALUES (6, "sports bra", 29.99, "small, medium, large", 50);
+INSERT INTO Workout_ware VALUES (7, "yoga bra", 29.99, "small, medium", 20);
+INSERT INTO Workout_ware VALUES (8, "yoga gloves", 4.99, "one-size", 19);
+INSERT INTO Workout_ware VALUES (9, "yoga mat", 69.99, "one-size", 10);
+INSERT INTO Workout_ware VALUES (10, "crop top", 19.99, "small, medium", 21);
+INSERT INTO Workout_ware VALUES (11, "running top", 24.99, "medium, large", 13);
+INSERT INTO Workout_ware VALUES (12, "yoga top", 21.99, "small, medium, large", 30);
+INSERT INTO Workout_ware VALUES (13, "running belt", 15.99, "one-size", 7); 
+INSERT INTO Workout_ware VALUES (14, "casual leggings", 34.99, "small, medium, large", 40);
+INSERT INTO Workout_ware VALUES (15, "casual hoodie", 34.99, "medium, large", 20);
+
+SELECT * FROM Workout_ware
+ORDER BY quantity desc;
+
+SELECT * FROM Workout_ware WHERE size = "one-size";
