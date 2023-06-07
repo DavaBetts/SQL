@@ -1,0 +1,110 @@
+/*
+Created By Dava Betts
+Create Date: 06/04/2023
+Description: This query displays all customers first, last names and email addresses
+*/
+SELECT
+FirstName AS [Customer First Name],
+LastName AS 'Customer Last Name',
+Email AS Email
+FROM 
+ Customer
+ ORDER BY
+ FirstName ASC,
+ LastName DESC
+ LIMIT 10
+ 
+ /*
+ How many customers who purchased two songs at $0.99 EACH
+ */
+ 
+ SELECT 
+ InvoiceDate,
+ BillingAddress,
+ BillingCity,
+ total
+ FROM
+ Invoice
+ WHERE
+ total = 1.98
+ ORDER BY
+ InvoiceDate
+ 
+ /*
+ How many invoices exist between $1.98 and $5.00?
+ */
+ 
+ SELECT
+ InvoiceDate,
+ BillingAddress,
+ BillingCity
+ total
+ FROM
+ Invoice
+ WHERE
+ total BETWEEN 1.98 AND 5.00
+ ORDER BY
+ InvoiceDate
+ 
+ /*
+ How many invoices do we have that are exactly $1.98 or $3.96?
+*/
+
+SELECT 
+InvoiceDate,
+BillingAddress,
+BillingCity,
+total
+FROM 
+Invoice
+WHERE 
+total IN (1.98, 3.96)
+ORDER BY 
+InvoiceDate
+
+/*
+How many invoices were billed in cities that start with B?
+*/
+
+SELECT 
+InvoiceDate,
+BillingAddress,
+BillingCity,
+total
+FROM 
+Invoice
+WHERE 
+BillingCity LIKE 'B%'
+ORDER BY
+InvoiceDate
+
+/*
+How many invoices were billed in cities that have a B anywhere in it's name?
+*/
+SELECT 
+InvoiceDate,
+BillingAddress,
+BillingCity,
+total
+FROM 
+Invoice
+WHERE 
+BillingCity LIKE '%B%'
+ORDER BY
+InvoiceDate
+
+/*
+How many invoices were billed on May 22, 2010?
+*/
+
+SELECT 
+InvoiceDate,
+BillingAddress,
+BillingCity,
+total
+FROM 
+Invoice
+WHERE 
+DATE (InvoiceDate) = '2010-05-22'
+ORDER BY
+InvoiceDate
