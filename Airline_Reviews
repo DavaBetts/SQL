@@ -1,0 +1,36 @@
+*/ Airline_Reviews Dataset anaylized by Dava Betts on 7/26/23
+Obtained from Kaggle.com
+Goal: Find out which United States Mainline Carriers rank at the top in the year 2022 with overall score and wifi rating./*
+
+*/ This dataset included airlines from all over the world with 22 Columns in the table. To begin I narrowed down my results with the top 3 mainline 
+carriers and excluded any results that did not list the aircraft type./*
+
+SELECT AirlineName, OriginCountry, Aircraft 
+FROM Airline_Reviews
+WHERE OriginCountry = 'UnitedStates'
+  AND (AirlineName LIKE 'Delta%' OR AirlineName LIKE 'American Airlines%' OR AirlineName LIKE 'United Airlines%')
+  AND Aircraft IS NOT NULL;
+  
+*/ The "IS NOT NULL" operator failed possilby due to leading or trailing spaces. To eliminate this problem I used the TRIM()
+function below./*
+
+SELECT AirlineName, OriginCountry, TRIM(Aircraft) AS Aircraft
+FROM Airline_Reviews
+WHERE OriginCountry = 'UnitedStates'
+  AND (AirlineName LIKE 'Delta%' OR AirlineName LIKE 'American Airlines%' OR AirlineName LIKE 'United Airlines%')
+  AND TRIM(Aircraft) <> '';
+  
+SELECT AirlineName, OriginCountry, TRIM(Aircraft) AS Aircraft, MAX(OverallScore) AS OverallScore, MAX(WifiRating) AS WifiRating, MAX(DateFlown) AS DateFlown
+FROM Airline_Reviews
+WHERE OriginCountry = 'UnitedStates'
+  AND (AirlineName LIKE 'Delta%' OR AirlineName LIKE 'American Airlines%' OR AirlineName LIKE 'United Airlines%')
+  AND COALESCE(Aircraft, '') <> ''
+GROUP BY AirlineName, OriginCountry, Aircraft
+HAVING MAX(DateFlown) LIKE '%2022'
+ORDER BY MAX(OverallScore) DESC, MAX(DateFlown) DESC
+LIMIT 18;
+
+*/ In the final query I wanted to narrow the results down to the year of 2022. After running the query for that year I noticed only 18 results were ruturned and 
+added which columns I wanted to focus on which were the OverallScore and Wifirating. It appears from the data returned that American Airlines and Delta Air Lines out rank
+United in both categories leading with 9's and 5's./*
+
