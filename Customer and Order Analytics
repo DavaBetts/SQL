@@ -1,0 +1,52 @@
+/* Customer and Order Analytics Dataset
+Created By: Dava Betts on 7/27/23 */
+
+/* How many orders were placed in January? */
+
+SELECT COUNT(DISTINCT OrderID) AS Total_Ordered
+FROM JanSales;
+
+/*How many of those orders were for an iPhone?*/
+
+SELECT Product, COUNT(Quantity)
+FROM Jansales
+WHERE Product = 'iPhone';
+
+/*Select the customer account numbers for all the orders that were placed in February.*/
+
+SELECT distinct acctnum
+FROM BIT_DB.customers c
+INNER JOIN BIT_DB.FebSales FEB
+ON c.order_id=FEB.orderid
+WHERE length(orderid) = 6 
+AND orderid <> 'Order ID';
+
+/* Which prodcut was the cheapest one sold in January, and what was the price?*/
+
+SELECT distinct Product, MIN(price)
+FROM JanSales
+GROUP BY product, price
+ORDER BY price ASC;
+
+/* What is the total revenue for each product sold in January?
+
+SELECT SUM(quantity)*price AS revenue, product
+FROM JanSales
+GROUP BY product;
+
+/*Which products were sold in February at 548 Lincoln St, Seattle, WA 98101, how many of each were sold, and what was the total revenue? */
+
+SELECT SUM(Quantity), product, SUM(Quantity)*price AS revenue
+FROM FebSales
+WHERE location = '548 Lincoln St, Seattle, WA 98101'
+GROUP BY product;
+
+/* How many customers ordered more than 2 products at a time, and what was the average amount spent for those customers?*/
+
+SELECT COUNT(DISTINCT c.acctnum), avg(quantity*price)
+FROM FebSales FEB
+LEFT JOIN customers c
+ON FEB.orderid = c.order_id
+WHERE FEB.quantity>2
+AND Length(orderid) = 6
+AND orderid <> 'Order ID';
